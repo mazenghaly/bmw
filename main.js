@@ -178,42 +178,61 @@ function setupReveal() {
     });
   });
 
-  const io = new IntersectionObserver(function(entries) {
-    entries.forEach(function(en) {
-      if (!en.isIntersecting) return;
-      const b = en.target;
-      b.style.opacity = '1';
-      b.style.transform = 'none';
+  const revealed = new Set();
 
-      b.querySelectorAll('h1,h2,h3,[data-wipe]').forEach(function(w, i) {
-        const d = 0.08 + i * 0.09;
-        w.style.transition = 'clip-path 1s cubic-bezier(.16,.84,.33,1) ' + d + 's';
-        w.style.clipPath = 'inset(0 0 -12% 0)';
-      });
+  function revealBlock(b) {
+    if (revealed.has(b)) return;
+    revealed.add(b);
+    try { io.unobserve(b); } catch (e) {}
 
-      b.querySelectorAll('[role="img"]').forEach(function(m, i) {
-        const d = 0.12 + i * 0.12;
-        m.style.transition = 'clip-path 1.15s cubic-bezier(.16,.84,.33,1) ' + d + 's, transform .55s cubic-bezier(.16,.84,.33,1), box-shadow .55s ease';
-        m.style.clipPath = 'inset(0 0 -2% 0)';
-        scanSweep(m);
-      });
+    b.style.opacity = '1';
+    b.style.transform = 'none';
 
-      setTimeout(function() {
-        b.querySelectorAll('h1,h2,h3,[data-wipe]').forEach(function(w) {
-          w.style.clipPath = 'none';
-          w.style.willChange = 'auto';
-        });
-        b.querySelectorAll('[role="img"]').forEach(function(m) {
-          m.style.clipPath = 'none';
-          m.style.willChange = 'auto';
-        });
-      }, 1600);
-
-      io.unobserve(b);
+    b.querySelectorAll('h1,h2,h3,[data-wipe]').forEach(function(w, i) {
+      const d = 0.08 + i * 0.09;
+      w.style.transition = 'clip-path 1s cubic-bezier(.16,.84,.33,1) ' + d + 's';
+      w.style.clipPath = 'inset(0 0 -12% 0)';
     });
+
+    b.querySelectorAll('[role="img"]').forEach(function(m, i) {
+      const d = 0.12 + i * 0.12;
+      m.style.transition = 'clip-path 1.15s cubic-bezier(.16,.84,.33,1) ' + d + 's, transform .55s cubic-bezier(.16,.84,.33,1), box-shadow .55s ease';
+      m.style.clipPath = 'inset(0 0 -2% 0)';
+      scanSweep(m);
+    });
+
+    setTimeout(function() {
+      b.querySelectorAll('h1,h2,h3,[data-wipe],[role="img"]').forEach(function(m) {
+        m.style.clipPath = 'none';
+        m.style.willChange = 'auto';
+      });
+    }, 1600);
+  }
+
+  const io = new IntersectionObserver(function(entries) {
+    entries.forEach(function(en) { if (en.isIntersecting) revealBlock(en.target); });
   }, { threshold: 0, rootMargin: '0px 0px -80px 0px' });
 
   blocks.forEach(function(b) { io.observe(b); });
+
+  // Failsafe: some mobile browsers can fail to fire the observer for tall or
+  // lazily-laid-out blocks, leaving images permanently clip-path hidden. This
+  // manually reveals any block that is actually on screen, so images can never
+  // get stuck invisible. Below-the-fold blocks keep their scroll-in animation.
+  function sweepVisible() {
+    if (revealed.size === blocks.length) return;
+    const vh = window.innerHeight || 0;
+    blocks.forEach(function(b) {
+      if (revealed.has(b)) return;
+      const r = b.getBoundingClientRect();
+      if (r.top < vh - 40 && r.bottom > -40) revealBlock(b);
+    });
+  }
+  window.addEventListener('scroll', sweepVisible, { passive: true });
+  window.addEventListener('resize', sweepVisible);
+  window.addEventListener('load', function() { sweepVisible(); setTimeout(sweepVisible, 600); });
+  setTimeout(sweepVisible, 400);
+  setTimeout(sweepVisible, 1400);
 }
 
 function scanSweep(m) {
