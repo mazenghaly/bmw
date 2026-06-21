@@ -1,0 +1,146 @@
+:root {
+  --bg: #0E0F11;
+  --surface: #16181B;
+  --surface2: #1b1e22;
+  --text: #ECECEA;
+  --muted: #8A8F98;
+  --line: #2A2D31;
+  --accent: #3A6EA5;
+  --accent-soft: #5b8fc4;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Archivo', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+::selection { background: var(--accent); color: #fff; }
+img { max-width: 100%; display: block; }
+
+/* ── Progress bar ────────────────────────────── */
+.progress-track {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  z-index: 200;
+  background: rgba(255,255,255,.04);
+  pointer-events: none;
+}
+#progress-bar {
+  height: 100%;
+  width: 0%;
+  background: var(--accent);
+  transition: width .08s linear;
+}
+
+/* ── Grain overlay ───────────────────────────── */
+#grain {
+  position: fixed;
+  inset: -20%;
+  width: 140%;
+  height: 140%;
+  pointer-events: none;
+  z-index: 999;
+  opacity: 0.030;
+  background-repeat: repeat;
+  background-size: 256px 256px;
+  animation: grainshift 7s steps(2, end) infinite;
+}
+
+/* ── Keyframes ───────────────────────────────── */
+@keyframes scrollcue {
+  0%   { transform: translateY(0);    opacity: 0 }
+  25%  {                               opacity: 1 }
+  100% { transform: translateY(11px); opacity: 0 }
+}
+@keyframes buspulse {
+  0%   { top: 0;    opacity: 0 }
+  12%  {            opacity: 1 }
+  88%  {            opacity: 1 }
+  100% { top: 100%; opacity: 0 }
+}
+@keyframes breathe {
+  0%, 100% { opacity: .45 }
+  50%       { opacity: 1   }
+}
+@keyframes grainshift {
+  0%   { transform: translate(0,0)         }
+  20%  { transform: translate(-2%,1.5%)    }
+  40%  { transform: translate(1.5%,-2%)    }
+  60%  { transform: translate(-1.5%,-1.5%) }
+  80%  { transform: translate(2%,1%)       }
+  100% { transform: translate(0,0)         }
+}
+
+/* ── Arduino boards ──────────────────────────── */
+.arduino-board {
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-left: 2px solid var(--accent);
+  padding: 22px clamp(18px,2.5vw,30px);
+  transition: transform .25s ease, border-left-color .25s ease;
+  cursor: default;
+}
+.arduino-board:hover {
+  transform: translateX(5px);
+  border-left-color: var(--accent-soft);
+}
+
+/* ── Reset button ────────────────────────────── */
+.reset-btn {
+  margin-top: auto;
+  align-self: flex-start;
+  background: transparent;
+  color: var(--text);
+  border: 1px solid var(--line);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  padding: 11px 18px;
+  cursor: pointer;
+  transition: border-color .2s ease, color .2s ease;
+}
+.reset-btn:hover {
+  border-color: var(--accent-soft);
+  color: var(--accent-soft);
+}
+
+/* ── Simulator responsive ────────────────────── */
+@media (max-width: 760px) {
+  .sim-grid { grid-template-columns: 1fr !important; }
+}
+@media (max-width: 540px) {
+  .sim-wheels { grid-template-columns: 1fr !important; }
+  .sim-wheel  { min-height: 0 !important; aspect-ratio: 16/9 !important; }
+}
+
+/* ── General mobile responsive ───────────────── */
+@media (max-width: 768px) {
+  .grid-12 { display: flex !important; flex-direction: column !important; }
+  .grid-12 > * { min-width: 0 !important; }
+  .duo-grid { grid-template-columns: 1fr !important; }
+  .specs-dl > div { grid-template-columns: 1fr !important; gap: 6px !important; }
+  .team-grid { grid-template-columns: repeat(2,1fr) !important; }
+  .team-grid-lower { display: flex !important; flex-direction: column !important; }
+  .team-grid-lower > * { min-width: 0 !important; }
+}
+@media (max-width: 480px) {
+  .team-grid { grid-template-columns: 1fr !important; }
+}
+
+/* ── Figure hover ────────────────────────────── */
+figure [role="img"] {
+  transition: transform .35s cubic-bezier(.16,.84,.33,1), box-shadow .35s ease;
+}
+figure [role="img"]:hover {
+  transform: scale(1.014);
+  box-shadow: 0 20px 54px rgba(0,0,0,.5);
+  z-index: 2;
+  position: relative;
+}
