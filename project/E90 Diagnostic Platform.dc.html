@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&amp;family=Archivo+Expanded:wght@600;700;800;900&amp;family=JetBrains+Mono:wght@400;500;700&amp;display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0E0F11; --surface:#16181B; --surface2:#1b1e22;
+    --text:#ECECEA; --muted:#8A8F98; --line:#2A2D31;
+    --accent:#3A6EA5; --accent-soft:#5b8fc4;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;}
+  body{margin:0;background:#0E0F11;color:#ECECEA;font-family:'Archivo',system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
+  ::selection{background:#3A6EA5;color:#fff;}
+  img{max-width:100%;display:block;}
+  @keyframes scrollcue{0%{transform:translateY(0);opacity:0}25%{opacity:1}100%{transform:translateY(11px);opacity:0}}
+  @keyframes buspulse{0%{top:0;opacity:0}12%{opacity:1}88%{opacity:1}100%{top:100%;opacity:0}}
+  @keyframes breathe{0%,100%{opacity:.45}50%{opacity:1}}
+  @keyframes grainshift{0%{transform:translate(0,0)}20%{transform:translate(-2%,1.5%)}40%{transform:translate(1.5%,-2%)}60%{transform:translate(-1.5%,-1.5%)}80%{transform:translate(2%,1%)}100%{transform:translate(0,0)}}
+  /* Alignment simulator — mobile layout */
+  @media (max-width:760px){
+    [data-sim-grid]{grid-template-columns:1fr!important;}
+  }
+  @media (max-width:540px){
+    [data-sim-wheels]{grid-template-columns:1fr!important;}
+    [data-sim-wheel]{min-height:0!important;aspect-ratio:16/9!important;}
+  }
+
+</style>
+</helmet>
+
+<div ref="{{ setRoot }}" style="position:relative;background:var(--bg);color:var(--text);font-family:'Archivo',system-ui,sans-serif;line-height:1.5;overflow:hidden;">
+
+  <!-- scroll progress -->
+  <div style="position:fixed;top:0;left:0;right:0;height:2px;z-index:200;background:rgba(255,255,255,.04);">
+    <div ref="{{ setProgress }}" style="height:100%;width:0%;background:var(--accent);transition:width .08s linear;"></div>
+  </div>
+
+  <!-- grain overlay -->
+  
+
+  <!-- ============ HERO ============ -->
+  <section style="position:relative;height:100vh;min-height:620px;width:100%;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;">
+    <div ref="{{ setParallax }}" aria-hidden="true" style="position:absolute;top:-12%;left:0;right:0;height:124%;will-change:transform;background:repeating-linear-gradient(125deg,#14171a,#14171a 18px,#101316 18px,#101316 36px);"></div>
+    <video ref="{{ setHeroVideo }}" autoplay="" muted="" playsinline="" preload="auto" aria-hidden="true" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+      <source src="media/hero-headlights.mp4" type="video/mp4">
+    </video>
+    <div aria-hidden="true" style="position:absolute;inset:0;background:radial-gradient(120% 90% at 70% 18%,rgba(58,110,165,.10),transparent 55%);"></div>
+    <div aria-hidden="true" style="position:absolute;left:0;right:0;bottom:0;height:64%;background:linear-gradient(to top,#0E0F11 2%,rgba(14,15,17,.62) 30%,transparent 70%);"></div>
+    <div role="img" aria-label="Hero — restored BMW E90 front-cut, cinematic three-quarter front view, low angle" style="position:absolute;inset:0;"></div>
+
+    <!-- top corner spec tag -->
+    <div style="position:absolute;top:0;left:0;right:0;display:flex;justify-content:space-between;align-items:flex-start;padding:clamp(20px,3vw,40px);font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.22em;color:var(--muted);text-transform:uppercase;">
+      
+      
+    </div>
+
+    <!-- hero content -->
+    <div ref="{{ setHero }}" style="position:relative;z-index:3;padding:clamp(24px,5vw,72px) clamp(24px,5vw,72px) clamp(24px,5vw,72px) clamp(10px,1.5vw,28px);max-width:1320px;margin:0;width:100%;">
+      <div data-hero-rise="" style="font-family:'JetBrains Mono',monospace;font-size:clamp(11px,1.1vw,13px);letter-spacing:.32em;color:var(--accent-soft);text-transform:uppercase;margin-bottom:22px;">Graduation Project — 2026</div>
+      <h1 data-hero-rise="" style="margin: 0; font-family: 'Archivo Expanded','Archivo',sans-serif; font-weight: 800; font-size: clamp(30px,5.4vw,82px); line-height: .94; letter-spacing: -.02em; color: var(--text); text-wrap: balance; max-width: 14ch;">Suspension &amp; Brake Diagnosis</h1>
+      <p data-hero-rise="" style="margin:26px 0 0;max-width:46ch;font-size:clamp(15px,1.6vw,20px);line-height:1.5;color:#cfd2d6;font-weight:400;">A salvaged BMW E90 front-cut, rebuilt into a laboratory-grade suspension &amp; brake diagnostic platform.</p>
+      <div data-hero-rise="" style="display:flex;flex-wrap:wrap;gap:8px 28px;margin-top:34px;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.16em;color:var(--muted);text-transform:uppercase;">
+        <span>New Cairo Technological University</span><span style="color:var(--line);">/</span><span>7 members</span>
+      </div>
+    </div>
+
+    <!-- scroll cue -->
+    <div aria-hidden="true" style="position:absolute;left:50%;bottom:22px;transform:translateX(-50%);z-index:4;display:flex;flex-direction:column;align-items:center;gap:8px;">
+      <span style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.3em;color:var(--muted);text-transform:uppercase;">Scroll</span>
+      <span ref="{{ setCue }}" style="width:1px;height:34px;background:linear-gradient(to bottom,var(--accent),transparent);animation:scrollcue 1.9s ease-in-out infinite;"></span>
+    </div>
+  </section>
+
+  <!-- ============ PREMISE ============ -->
+  <section style="max-width:1320px;margin:0 auto;padding:clamp(80px,12vw,180px) clamp(24px,5vw,72px);">
+    <div style="display:grid;grid-template-columns:repeat(12,1fr);gap:clamp(28px,4vw,64px);align-items:start;">
+      <div data-reveal="" style="grid-column:1 / span 5;min-width:240px;">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.28em;color:var(--accent-soft);text-transform:uppercase;">The premise</div>
+        <h2 style="margin:18px 0 0;font-family:'Archivo Expanded','Archivo',sans-serif;font-weight:700;font-size:clamp(28px,3.6vw,52px);line-height:1.02;letter-spacing:-.015em;text-wrap:balance;">We turned a wreck into a measuring tool.</h2>
+      </div>
+      <div data-reveal="" style="grid-column:7 / span 6;min-width:260px;">
+        <p style="margin:0;font-size:clamp(16px,1.5vw,21px);line-height:1.62;color:#c7cace;">It started as a wrecked BMW E90 front-cut. The body, interior, engine bay, steering and suspension were all worn out and falling apart.</p>
+        <p style="margin:22px 0 0;font-size:clamp(15px,1.35vw,18px);line-height:1.66;color:var(--muted);">Our goal was simple to say but hard to do: turn this wreck into a precise wheel-alignment tool. First we had to make it solid again — a full rebuild, because no sensor can be trusted on a shaky car.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CINEMATIC INTERSTITIAL ============ -->
+  <section data-reveal="" style="position:relative;width:100%;overflow:hidden;">
+    <div ref="{{ setCarBand }}" style="position:relative;width:100%;height:clamp(360px,62vh,660px);overflow:hidden;background:#07070b;">
+      <img ref="{{ setCarImg }}" src="images/diagnostic-bench.jpg" alt="The lit BMW E90 cluster on the workbench beside a laptop running diagnostic software" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 58%;transform:scale(1.12);will-change:transform;filter:saturate(.92) contrast(1.04);">
+      <div aria-hidden="true" style="position:absolute;inset:0;background:linear-gradient(90deg,#0E0F11 0%,rgba(14,15,17,0) 22%,rgba(14,15,17,0) 78%,#0E0F11 100%);"></div>
+      <div aria-hidden="true" style="position:absolute;inset:0;background:linear-gradient(to bottom,#0E0F11 0%,rgba(14,15,17,0) 26%,rgba(14,15,17,0) 68%,#0E0F11 100%);"></div>
+      <div aria-hidden="true" style="position:absolute;inset:0;background:radial-gradient(120% 80% at 60% 42%,rgba(58,110,165,.18),transparent 60%);mix-blend-mode:soft-light;"></div>
+      <div data-anim-motion="" aria-hidden="true" style="position:absolute;left:82%;top:66%;width:34%;height:42%;transform:translate(-50%,-50%);background:radial-gradient(closest-side,rgba(205,222,255,.5),rgba(120,160,230,.16),transparent 72%);mix-blend-mode:screen;filter:blur(2px);animation:breathe 3.6s ease-in-out infinite;"></div>
+      <div data-anim-motion="" aria-hidden="true" style="position:absolute;left:15%;top:64%;width:15%;height:22%;transform:translate(-50%,-50%);background:radial-gradient(closest-side,rgba(222,64,64,.5),transparent 70%);mix-blend-mode:screen;filter:blur(2px);animation:breathe 2.8s ease-in-out infinite;animation-delay:.6s;"></div>
+      <div style="position:absolute;left:0;right:0;bottom:0;padding:clamp(20px,4vw,52px);max-width:1320px;margin:0 auto;">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.26em;color:var(--accent-soft);text-transform:uppercase;">Reference platform</div>
+        <p style="margin:12px 0 0;max-width:30ch;font-family:'Archivo Expanded','Archivo',sans-serif;font-weight:700;font-size:clamp(20px,2.6vw,34px);line-height:1.1;letter-spacing:-.01em;color:var(--text);text-wrap:balance;">The same car — now measured down to a tenth of a degree.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ BEFORE / AFTER ============ -->
+  <section style="max-width:1500px;margin:0 auto;padding:0 clamp(16px,3vw,48px) clamp(70px,10vw,150px);">
+    <div data-reveal="" style="display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap;margin-bottom:26px;padding:0 clamp(8px,2vw,24px);">
+      <div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.28em;color:var(--accent-soft);text-transform:uppercase;">The proof</div>
+        <h2 style="margin:14px 0 0;font-family:'Archivo Expanded','Archivo',sans-serif;font-weight:700;font-size:clamp(26px,3.4vw,48px);line-height:1.0;letter-spacing:-.015em;">Before &nbsp;→&nbsp; After</h2>
+      </div>
+      <p style="margin:0;max-width:38ch;font-size:14px;line-height:1.6;color:var(--muted);">Drag the handle. Same car, same angle — months of hard work in between.</p>
+    </div>
+
+    <div ref="{{ setSlider }}" onPointerDown="{{ onSliderDown }}" data-reveal="" style="position:relative;width:100%;aspect-ratio:16/9;overflow:hidden;border:1px solid var(--line);user-select:none;touch-action:none;cursor:ew-resize;background:var(--surface);">
+      <!-- AFTER (base) -->
+      <div role="img" aria-label="After — fully restored E90 front-cut, glossy black finish" style="position:absolute;inset:0;background:#000;">
+        <img src="images/after-frontcut.jpg" alt="" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 66%;">
+      </div>
+      <!-- BEFORE (clipped) -->
+      <div style="position:absolute;inset:0;width:{{ splitPct }};overflow:hidden;border-right:2px solid var(--accent);">
+        <div role="img" aria-label="Before — the damaged, dusty E90 front-cut as received" style="position:absolute;top:0;left:0;height:100%;width:var(--slider-w,100vw);background:#000;">
+          <img src="images/before-frontcut.jpg" alt="" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 12%;">
+        </div>
+      </div>
+      <!-- corner tags -->
+      <span style="position:absolute;top:14px;left:14px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.2em;color:#7d828a;background:rgba(8,9,11,.55);padding:5px 9px;">BEFORE</span>
+      <span style="position:absolute;top:14px;right:14px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.2em;color:var(--accent-soft);background:rgba(8,9,11,.55);padding:5px 9px;">AFTER</span>
+      <!-- handle -->
+      <div style="position:absolute;top:0;bottom:0;left:{{ splitPct }};transform:translateX(-50%);width:44px;display:flex;align-items:center;justify-content:center;pointer-events:none;">
+        <div style="width:2px;height:100%;background:var(--accent);position:absolute;"></div>
+        <div style="position:relative;width:44px;height:44px;border-radius:50%;background:var(--bg);border:2px solid var(--accent);display:flex;align-items:center;justify-content:center;box-shadow:0 6px 24px rgba(0,0,0,.5);">
+          <span style="font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--accent-soft);letter-spacing:-.05em;">‹›</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 01 — STRUCTURAL ============ -->
+  <section style="max-width:1320px;margin:0 auto;padding:clamp(60px,9vw,120px) clamp(24px,5vw,72px);border-top:1px solid var(--line);">
+    <div style="display:grid;grid-template-columns:repeat(12,1fr);gap:clamp(28px,4vw,56px);align-items:center;">
+      <figure data-reveal="" style="grid-column:1 / span 7;min-width:280px;margin:0;">
+        <div role="img" aria-label="Rebuilt front-cut engine bay with overhauled suspension, steering and braking hardware" style="position:relative;aspect-ratio:4/3;background:#000;border:1px solid var(--line);overflow:hidden;">
+          <img src="images/structural-enginebay.jpg" alt="" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+        </div>
+      </figure>
+      <div data-reveal="" style="grid-column:9 / span 4;min-width:240px;">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.26em;color:var(--accent-soft);text-transform:uppercase;">01 — Restoration</div>
+        <h3 style="margin:16px 0 0;font-family:'Archivo','sans-serif';font-weight:700;font-size:clamp(24px,2.6vw,36px);line-height:1.06;letter-spacing:-.01em;">Structural &amp; mechanical overhaul</h3>
+        <p style="margin:18px 0 0;font-size:16px;line-height:1.62;color:var(--muted);">We fixed the body, realigned the wheels and gave it a clean coat of paint. Then we took apart the whole front suspension, steering rack and brakes, cleaned every piece, and put it all back together like new.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 02 — INTERIOR / DASH ============ -->
+  <section style="max-width:1320px;margin:0 auto;padding:clamp(60px,9vw,120px) clamp(24px,5vw,72px);border-top:1px solid var(--line);">
+    <div data-reveal="" style="max-width:56ch;">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.26em;color:var(--accent-soft);text-transform:uppercase;">02 — Interior</div>
+      <h3 style="margin:16px 0 0;font-family:'Archivo',sans-serif;font-weight:700;font-size:clamp(24px,2.8vw,40px);line-height:1.04;letter-spacing:-.01em;">Rebuilding the dashboard, not replacing it.</h3>
+      <p style="margin:18px 0 0;font-size:17px;line-height:1.62;color:var(--muted);">Years of sun and rain had left the plastics dry and brittle. The dashboard was a mess of deep cracks and broken bits. Instead of buying a new one, we rebuilt the old one by hand — filling the cracks and bringing its shape back to clean and solid.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:clamp(14px,2vw,28px);margin-top:clamp(28px,4vw,52px);">
+      <figure data-reveal="" style="margin:0;">
+        <div role="img" aria-label="Dusty, dismantled original dashboard before repair" style="position:relative;aspect-ratio:3/2;background:#000;border:1px solid var(--line);overflow:hidden;">
+          <img src="images/dashboard-before.jpg" alt="" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+        </div>
+      </figure>
+      <figure data-reveal="" style="margin:0;">
+        <div role="img" aria-label="Rebuilt dashboard restored to clean, usable condition" style="position:relative;aspect-ratio:3/2;background:#000;border:1px solid var(--line);overflow:hidden;">
+          <img src="images/dashboard-after.jpg" alt="" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+        </div>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ============ 03 — CAD / SENSORS ============ -->
+  <section style="max-width:1320px;margin:0 auto;padding:clamp(60px,9vw,120px) clamp(24px,5vw,72px);border-top:1px solid var(--line);">
+    <div style="display:grid;grid-template-columns:repeat(12,1fr);gap:clamp(28px,4vw,56px);align-items:start;">
+      <div data-reveal="" style="grid-column:1 / span 5;min-width:250px;">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.26em;color:var(--accent-soft);text-transform:uppercase;">03 — Sensors &amp; CAD</div>
+        <h3 style="margin:16px 0 0;font-family:'Archivo',sans-serif;font-weight:700;font-size:clamp(24px,2.8vw,40px);line-height:1.04;letter-spacing:-.01em;">Every mount drawn and printed in-house.</h3>
+        <p style="margin:18px 0 0;font-size:16px;line-height:1.62;color:var(--muted);">Two sensors do the measuring: a throttle-position sensor (TPS), reused to read toe angle, and ultrasonic sensors for camber. No ready-made bracket fit our car, so we designed every mount and case ourselves in SolidWorks and 3D-printed them in PLA.</p>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:22px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.12em;color:var(--muted);text-transform:uppercase;">
+          <span style="border:1px solid var(--line);padding:6px 11px;">TPS · toe</span>
+          <span style="border:1px solid var(--line);padding:6px 11px;">Ultrasonic · camber</span>
+          <span style="border:1px solid var(--line);padding:6px 11px;">SolidWorks</span>
+          <span style="border:1px solid var(--line);padding:6px 11px;">PLA</span>
+        </div>
+      </div>
+      <div style="grid-column:7 / span 6;min-width:260px;display:flex;flex-direction:column;gap:clamp(14px,2vw,24px);">
+        <figure data-reveal="" style="margin:0;">
+          <div role="img" aria-label="Custom 3D-printed ultrasonic camber-sensor mount installed on the suspension" style="position:relative;aspect-ratio:16/10;background:#000;border:1px solid var(--line);overflow:hidden;">
+            <img src="images/sensor-ultrasonic.jpg" alt="" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+          </div>
+        </figure>
+        <figure data-reveal="" style="margin:0;">
+          <div role="img" aria-label="3D-printed PLA bracket holding the TPS toe sensor in the engine bay" style="position:relative;aspect-ratio:16/10;background:#000;border:1px solid var(--line);overflow:hidden;">
+            <img src="images/sensor-tps.jpg" alt="" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+          </div>
+        </figure>
+      </div>
+    </div>
+
+    <!-- pride callout -->
+    <div data-reveal="" style="margin-top:clamp(40px,5vw,72px);border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:clamp(32px,5vw,56px) 0;">
+      <p style="margin:0;max-width:24ch;font-family:'Archivo Expanded','Archivo',sans-serif;font-weight:700;font-size:clamp(22px,3vw,42px);line-height:1.08;letter-spacing:-.015em;text-wrap:balance;">We made every 3D model and drawing ourselves. <span style="color:var(--accent-soft);">Nothing was downloaded or copied.</span></p>
+      <p style="margin:18px 0 0;max-width:52ch;font-size:15px;line-height:1.62;color:var(--muted);">We spent days measuring the real E90 chassis, drawing the parts, and testing the fit until everything lined up perfectly.</p>
+    </div>
+  </section>
+
+  <!-- ============ 04 — WIRING HARNESS ============ -->
+  <section style="background:var(--surface);border-top:1px solid var(--line);border-bottom:1px solid var(--line);">
+    <div style="max-width:1320px;margin:0 auto;padding:clamp(64px,9vw,128px) clamp(24px,5vw,72px);display:grid;grid-template-columns:repeat(12,1fr);gap:clamp(28px,4vw,56px);align-items:center;">
+      <div data-reveal="" style="grid-column:1 / span 5;min-width:240px;">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.26em;color:var(--accent-soft);text-transform:uppercase;">04 — Electrical</div>
+        <div style="display:flex;align-items:baseline;gap:14px;margin-top:22px;">
+          <span data-wipe="" style="font-family:'Archivo Expanded','Archivo',sans-serif;font-weight:900;font-size:clamp(76px,13vw,168px);line-height:.82;letter-spacing:-.04em;font-variant-numeric:tabular-nums;">50</span>
+          <span style="font-family:'JetBrains Mono',monospace;font-size:clamp(13px,1.4vw,17px);letter-spacing:.18em;color:var(--muted);text-transform:uppercase;writing-mode:vertical-rl;transform:rotate(180deg);padding-bottom:6px;">metres</span>
+        </div>
+        <p style="margin:24px 0 0;font-size:16px;line-height:1.62;color:var(--muted);max-width:42ch;">we built a brand-new harness from scratch. We mapped the power, routed clean signal lines for the Arduino sensors, and blocked out noise to keep the readings accurate. About fifty metres of wire — all hand-built, mounted and insulated neatly on the car.</p>
+      </div>
+      <figure data-reveal="" style="grid-column:7 / span 6;min-width:260px;margin:0;">
+        <div role="img" aria-label="The roughly 50-metre custom wiring harness, bench-built and routed onto the car" style="position:relative;aspect-ratio:1142/1600;background:#000;border:1px solid var(--line);overflow:hidden;">
+          <img src="images/wiring-harness.jpg" alt="" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+        </div>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ============ 05 — CAN BUS CLUSTER ============ -->
+  <section style="position:relative;max-width:1500px;margin:0 auto;padding:clamp(60px,9vw,120px) clamp(16px,3vw,48px);">
+    <figure data-reveal="" style="position:relative;margin:0;">
+      <div role="img" aria-label="The genuine BMW instrument cluster powered up and fully illuminated after CAN reverse-engineering" style="position:relative;aspect-ratio:16/9;background:#000;border:1px solid var(--line);overflow:hidden;">
+        <img src="images/cluster-lit.jpg" alt="" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 64%;">
+        <div data-anim-motion="" aria-hidden="true" style="position:absolute;inset:0;background:radial-gradient(60% 80% at 50% 60%,rgba(58,110,165,.10),transparent 70%);animation:breathe 4.5s ease-in-out infinite;"></div>
+      </div>
+    </figure>
+    <div data-reveal="" style="margin-top:clamp(28px,4vw,48px);display:grid;grid-template-columns:repeat(12,1fr);gap:clamp(24px,4vw,56px);align-items:start;">
+      <div style="grid-column:1 / span 4;min-width:220px;">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.26em;color:var(--accent-soft);text-transform:uppercase;">05 — CAN bus</div>
+        <h3 style="margin:16px 0 0;font-family:'Archivo',sans-serif;font-weight:700;font-size:clamp(24px,2.6vw,36px);line-height:1.06;letter-spacing:-.01em;">Reviving the BMW cluster.</h3>
+      </div>
+      <p style="grid-column:6 / span 7;min-width:260px;margin:0;font-size:17px;line-height:1.62;color:var(--muted);">The real BMW dashboard cluster won’t light up without the car’s computers. So we listened in on the CAN messages from a working E90 and decoded the IDs — months of trial and error — until the cluster finally powered on and lit up. That was the moment it started to feel like a real car again.</p>
+    </div>
+  </section>
+
+  <!-- ============ 06 — THREE-ARDUINO ARCHITECTURE ============ -->
+  <section style="background:var(--surface);border-top:1px solid var(--line);border-bottom:1px solid var(--line);">
+    <div style="max-width:1100px;margin:0 auto;padding:clamp(64px,9vw,128px) clamp(24px,5vw,72px);">
+      <div data-reveal="" style="max-width:54ch;margin-bottom:clamp(36px,5vw,64px);">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.26em;color:var(--accent-soft);text-transform:uppercase;">06 — Architecture</div>
+        <h3 style="margin:16px 0 0;font-family:'Archivo',sans-serif;font-weight:700;font-size:clamp(24px,2.8vw,40px);line-height:1.04;letter-spacing:-.01em;">Three Arduinos, one job each.</h3>
+        <p style="margin:16px 0 0;font-size:16px;line-height:1.6;color:var(--muted);">To keep everything fast and smooth, we split the work across three boards. Each one has a single job, so nothing slows down and alerts show up the instant they happen.</p>
+      </div>
+
+      <!-- signal-bus diagram -->
+      <div data-reveal="" style="position:relative;padding-left:30px;">
+        <div aria-hidden="true" style="position:absolute;left:7px;top:8px;bottom:42px;width:2px;background:linear-gradient(to bottom,var(--accent),var(--line));"></div>
+        <div aria-hidden="true" data-pulse="" style="position:absolute;left:4px;top:8px;bottom:42px;width:8px;pointer-events:none;">
+          <span data-anim-motion="" style="position:absolute;left:0;top:0;width:8px;height:8px;border-radius:50%;background:var(--accent);box-shadow:0 0 10px rgba(58,110,165,.75);animation:buspulse 3.2s linear infinite;"></span>
+          <span data-anim-motion="" style="position:absolute;left:0;top:0;width:8px;height:8px;border-radius:50%;background:var(--accent);box-shadow:0 0 10px rgba(58,110,165,.75);animation:buspulse 3.2s linear infinite;animation-delay:1.6s;"></span>
+        </div>
+
+        <!-- input -->
+        <div style="position:relative;margin-bottom:22px;">
+          <span aria-hidden="true" style="position:absolute;left:-30px;top:7px;width:14px;height:1px;background:var(--line);"></span>
+          <span aria-hidden="true" style="position:absolute;left:-26px;top:2px;width:7px;height:7px;border-radius:50%;background:var(--surface);border:2px solid var(--muted);"></span>
+          <span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.2em;color:var(--muted);text-transform:uppercase;">Suspension &amp; brake sensors — raw analog + digital</span>
+        </div>
+
+        <!-- node 1 -->
+        <div style="position:relative;margin-bottom:18px;">
+          <span aria-hidden="true" style="position:absolute;left:-30px;top:24px;width:18px;height:1px;background:var(--accent);"></span>
+          <span aria-hidden="true" style="position:absolute;left:-26px;top:18px;width:9px;height:9px;border-radius:50%;background:var(--accent);"></span>
+          <div style="background:var(--bg);border:1px solid var(--line);border-left:2px solid var(--accent);padding:22px clamp(18px,2.5vw,30px);transition:transform .25s ease,border-left-color .25s ease;" style-hover="transform:translateX(5px);border-left-color:var(--accent-soft);">
+            <div style="display:flex;justify-content:space-between;align-items:baseline;gap:14px;flex-wrap:wrap;">
+              <span style="font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.18em;color:var(--accent-soft);text-transform:uppercase;">Arduino 1</span>
+              <span style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.16em;color:var(--muted);text-transform:uppercase;">Data Collection</span>
+            </div>
+            <p style="margin:10px 0 0;font-size:15px;line-height:1.55;color:#c7cace;">Sits next to the sensors and reads all the raw data coming from the suspension and brakes.</p>
+          </div>
+        </div>
+
+        <!-- branch marker -->
+        <div style="position:relative;margin:0 0 18px;padding-left:2px;">
+          <span style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.2em;color:var(--muted);text-transform:uppercase;">↳ splits to two dedicated boards</span>
+        </div>
+
+        <!-- node 2 -->
+        <div style="position:relative;margin-bottom:18px;">
+          <span aria-hidden="true" style="position:absolute;left:-30px;top:24px;width:18px;height:1px;background:var(--accent);"></span>
+          <span aria-hidden="true" style="position:absolute;left:-26px;top:18px;width:9px;height:9px;border-radius:50%;background:var(--accent);"></span>
+          <div style="background:var(--bg);border:1px solid var(--line);border-left:2px solid var(--accent);padding:22px clamp(18px,2.5vw,30px);transition:transform .25s ease,border-left-color .25s ease;" style-hover="transform:translateX(5px);border-left-color:var(--accent-soft);">
+            <div style="display:flex;justify-content:space-between;align-items:baseline;gap:14px;flex-wrap:wrap;">
+              <span style="font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.18em;color:var(--accent-soft);text-transform:uppercase;">Arduino 2</span>
+              <span style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.16em;color:var(--muted);text-transform:uppercase;">Receiver &amp; Main Controller</span>
+            </div>
+            <p style="margin:10px 0 0;font-size:15px;line-height:1.55;color:#c7cace;">Sits next to Arduino 1 and talks to the BMW cluster through the CAN module.</p>
+            <div style="margin-top:14px;display:flex;align-items:center;gap:12px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.14em;color:var(--muted);text-transform:uppercase;flex-wrap:wrap;">
+              <span style="border:1px solid var(--line);padding:5px 9px;">MCP2515 CAN</span>
+              <span aria-hidden="true" style="color:var(--accent-soft);">→</span>
+              <span>Instrument cluster</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- node 3 -->
+        <div style="position:relative;margin-bottom:8px;">
+          <span aria-hidden="true" style="position:absolute;left:-30px;top:24px;width:18px;height:1px;background:var(--accent);"></span>
+          <span aria-hidden="true" style="position:absolute;left:-26px;top:18px;width:9px;height:9px;border-radius:50%;background:var(--accent);"></span>
+          <div style="background:var(--bg);border:1px solid var(--line);border-left:2px solid var(--accent);padding:22px clamp(18px,2.5vw,30px);transition:transform .25s ease,border-left-color .25s ease;" style-hover="transform:translateX(5px);border-left-color:var(--accent-soft);">
+            <div style="display:flex;justify-content:space-between;align-items:baseline;gap:14px;flex-wrap:wrap;">
+              <span style="font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.18em;color:var(--accent-soft);text-transform:uppercase;">Arduino 3</span>
+              <span style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.16em;color:var(--muted);text-transform:uppercase;">Dedicated Display Controller</span>
+            </div>
+            <p style="margin:10px 0 0;font-size:15px;line-height:1.55;color:#c7cace;">Takes the data from Arduino 1 and only runs the screen — its own board means zero delay on live alerts.</p>
+            <div style="margin-top:14px;display:flex;align-items:center;gap:12px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.14em;color:var(--muted);text-transform:uppercase;flex-wrap:wrap;">
+              <span aria-hidden="true" style="color:var(--accent-soft);">→</span>
+              <span>Display screen</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- output node -->
+        <div style="position:relative;padding-top:6px;">
+          <span aria-hidden="true" style="position:absolute;left:-30px;top:13px;width:14px;height:1px;background:var(--line);"></span>
+          <span aria-hidden="true" style="position:absolute;left:-26px;top:8px;width:7px;height:7px;border-radius:50%;background:var(--surface);border:2px solid var(--muted);"></span>
+          <span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.2em;color:var(--muted);text-transform:uppercase;">Live diagnostics — smooth UI, no real-time lag</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 07 — DISPLAY INTEGRATION ============ -->
+  <section style="max-width:1320px;margin:0 auto;padding:clamp(60px,9vw,120px) clamp(24px,5vw,72px);">
+    <div style="display:grid;grid-template-columns:repeat(12,1fr);gap:clamp(28px,4vw,56px);align-items:center;">
+      <div data-reveal="" style="grid-column:1 / span 4;min-width:240px;order:1;">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.26em;color:var(--accent-soft);text-transform:uppercase;">07 — Integration</div>
+        <h3 style="margin:16px 0 0;font-family:'Archivo',sans-serif;font-weight:700;font-size:clamp(24px,2.6vw,36px);line-height:1.06;letter-spacing:-.01em;">Built to look factory.</h3>
+        <p style="margin:18px 0 0;font-size:16px;line-height:1.62;color:var(--muted);">We wanted the screen to look like it came with the car. So we designed and 3D-printed a custom mount and fitted it right into the centre air vent — a clean, solid home for the live data.</p>
+      </div>
+      <figure data-reveal="" style="grid-column:6 / span 7;min-width:260px;margin:0;order:2;">
+        <div role="img" aria-label="The display screen fitted into the central air vent, showing the live BMW E90 alignment readout" style="position:relative;aspect-ratio:16/10;background:#000;border:1px solid var(--line);overflow:hidden;">
+          <img src="images/screen-integrated.jpg" alt="" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+        </div>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ============ INTERACTIVE — TRY THE BENCH ============ -->
+  <section style="border-top:1px solid var(--line);">
+    <div style="max-width:1320px;margin:0 auto;padding:clamp(64px,9vw,128px) clamp(24px,5vw,72px);">
+      <div data-reveal="" style="max-width:58ch;margin-bottom:clamp(32px,4vw,52px);">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.26em;color:var(--accent-soft);text-transform:uppercase;">Live — try the bench</div>
+        <h2 style="margin:16px 0 0;font-family:'Archivo Expanded','Archivo',sans-serif;font-weight:700;font-size:clamp(26px,3.4vw,48px);line-height:1.0;letter-spacing:-.015em;">Read toe and camber, the way the bench does.</h2>
+        <p style="margin:16px 0 0;font-size:16px;line-height:1.6;color:var(--muted);">Drag a wheel. The numbers follow the same two angles the platform measures — toe from the TPS, camber from the ultrasonics — and warn you the moment one goes out of range.</p>
+      </div>
+
+      <div data-reveal="" data-sim-grid="" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:clamp(16px,2.5vw,28px);align-items:stretch;">
+        <!-- wheel stages -->
+        <div data-sim-wheels="" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:clamp(12px,2vw,20px);">
+          <!-- TOE -->
+          <div data-sim-wheel="" onPointerDown="{{ onToeDown }}" style="position:relative;background:var(--surface);border:1px solid var(--line);aspect-ratio:1/1;min-height:230px;cursor:ew-resize;touch-action:none;overflow:hidden;display:flex;align-items:center;justify-content:center;">
+            <span style="position:absolute;top:12px;left:14px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.18em;color:var(--accent-soft);text-transform:uppercase;">Toe</span>
+            <span style="position:absolute;top:12px;right:14px;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.16em;color:#5e636b;text-transform:uppercase;">Top view</span>
+            <span aria-hidden="true" style="position:absolute;left:50%;top:30px;transform:translateX(-50%);font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.16em;color:#5e636b;">▲ FWD</span>
+            <span aria-hidden="true" style="position:absolute;left:50%;top:44px;bottom:38px;width:0;border-left:1px dashed #3a3e44;transform:translateX(-50%);"></span>
+            <div aria-hidden="true" style="position:relative;width:30px;height:54%;border-radius:7px;background:repeating-linear-gradient(0deg,#23262b,#23262b 4px,#191c20 4px,#191c20 8px);border:1px solid #34383e;transform:{{ toeTransform }};transform-origin:50% 50%;box-shadow:0 8px 20px rgba(0,0,0,.45);">
+              <span style="position:absolute;left:50%;top:50%;width:10px;height:10px;border-radius:50%;background:var(--accent);transform:translate(-50%,-50%);"></span>
+            </div>
+            <span style="position:absolute;bottom:12px;left:50%;transform:translateX(-50%);font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.14em;color:var(--muted);">drag ↔</span>
+          </div>
+          <!-- CAMBER -->
+          <div data-sim-wheel="" onPointerDown="{{ onCamberDown }}" style="position:relative;background:var(--surface);border:1px solid var(--line);aspect-ratio:1/1;min-height:230px;cursor:ew-resize;touch-action:none;overflow:hidden;display:flex;align-items:flex-end;justify-content:center;">
+            <span style="position:absolute;top:12px;left:14px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.18em;color:var(--accent-soft);text-transform:uppercase;">Camber</span>
+            <span style="position:absolute;top:12px;right:14px;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.16em;color:#5e636b;text-transform:uppercase;">Front view</span>
+            <span aria-hidden="true" style="position:absolute;left:50%;top:42px;bottom:20%;width:0;border-left:1px dashed #3a3e44;transform:translateX(-50%);"></span>
+            <div aria-hidden="true" style="position:relative;margin-bottom:20%;width:58px;height:50%;border-radius:8px;background:repeating-linear-gradient(90deg,#23262b,#23262b 4px,#191c20 4px,#191c20 8px);border:1px solid #34383e;transform:{{ camberTransform }};transform-origin:50% 100%;box-shadow:0 10px 22px rgba(0,0,0,.5);">
+              <span style="position:absolute;left:50%;top:50%;width:24px;height:24px;border-radius:50%;border:2px solid var(--accent);transform:translate(-50%,-50%);"></span>
+            </div>
+            <span aria-hidden="true" style="position:absolute;left:8%;right:8%;bottom:20%;height:0;border-top:1px solid #44484e;"></span>
+            <span style="position:absolute;bottom:12px;left:50%;transform:translateX(-50%);font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.14em;color:var(--muted);">drag ↔</span>
+          </div>
+        </div>
+
+        <!-- readout -->
+        <div style="background:var(--surface);border:1px solid var(--line);padding:clamp(22px,3vw,34px);display:flex;flex-direction:column;gap:clamp(18px,2.5vw,26px);">
+          <div style="display:flex;align-items:center;gap:10px;">
+            <span style="width:9px;height:9px;border-radius:50%;background:{{ statusColor }};box-shadow:0 0 10px {{ statusColor }};"></span>
+            <span style="font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:{{ statusColor }};">{{ statusText }}</span>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:14px;">
+            <div style="display:flex;justify-content:space-between;align-items:baseline;border-top:1px solid var(--line);padding-top:14px;gap:12px;">
+              <span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.18em;color:var(--muted);text-transform:uppercase;">Toe</span>
+              <span style="display:flex;align-items:baseline;gap:12px;">
+                <span style="font-family:'JetBrains Mono',monospace;font-weight:700;font-size:clamp(28px,3.4vw,40px);font-variant-numeric:tabular-nums;color:var(--text);">{{ toeText }}</span>
+                <span style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.16em;color:{{ toeColor }};text-transform:uppercase;">{{ toeStat }}</span>
+              </span>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:baseline;border-top:1px solid var(--line);padding-top:14px;gap:12px;">
+              <span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.18em;color:var(--muted);text-transform:uppercase;">Camber</span>
+              <span style="display:flex;align-items:baseline;gap:12px;">
+                <span style="font-family:'JetBrains Mono',monospace;font-weight:700;font-size:clamp(28px,3.4vw,40px);font-variant-numeric:tabular-nums;color:var(--text);">{{ camberText }}</span>
+                <span style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.16em;color:{{ camColor }};text-transform:uppercase;">{{ camStat }}</span>
+              </span>
+            </div>
+          </div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.14em;color:#5e636b;text-transform:uppercase;line-height:1.7;">Tolerance — toe ±0.30° · camber ±0.50°</div>
+          <button onClick="{{ onReset }}" style="margin-top:auto;align-self:flex-start;background:transparent;color:var(--text);border:1px solid var(--line);font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.18em;text-transform:uppercase;padding:11px 18px;cursor:pointer;transition:border-color .2s ease,color .2s ease;" style-hover="border-color:var(--accent-soft);color:var(--accent-soft);">Reset to straight</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SPECS ============ -->
+  <section style="border-top:1px solid var(--line);">
+    <div style="max-width:1320px;margin:0 auto;padding:clamp(64px,9vw,128px) clamp(24px,5vw,72px);">
+      <div data-reveal="" style="display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:16px;margin-bottom:clamp(32px,4vw,52px);">
+        <h2 style="margin:0;font-family:'Archivo Expanded','Archivo',sans-serif;font-weight:700;font-size:clamp(26px,3.4vw,48px);line-height:1.0;letter-spacing:-.015em;">At a glance</h2>
+        <span style="font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.2em;color:var(--muted);text-transform:uppercase;">Specification</span>
+      </div>
+      <dl data-reveal="" style="margin:0;display:grid;grid-template-columns:1fr;">
+        <div style="display:grid;grid-template-columns:minmax(140px,0.9fr) 2fr;gap:18px;padding:18px 0;border-top:1px solid var(--line);align-items:baseline;">
+          <dt style="margin:0;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.16em;color:var(--muted);text-transform:uppercase;">Platform</dt>
+          <dd style="margin:0;font-size:clamp(16px,1.5vw,19px);color:var(--text);">BMW E90 front-cut — fully restored mechanicals</dd>
+        </div>
+        <div style="display:grid;grid-template-columns:minmax(140px,0.9fr) 2fr;gap:18px;padding:18px 0;border-top:1px solid var(--line);align-items:baseline;">
+          <dt style="margin:0;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.16em;color:var(--muted);text-transform:uppercase;">Wiring harness</dt>
+          <dd style="margin:0;font-size:clamp(16px,1.5vw,19px);color:var(--text);"><span style="font-variant-numeric:tabular-nums;">≈ 50</span> <span style="color:var(--muted);font-size:.8em;">m</span> — hand-built from scratch</dd>
+        </div>
+        <div style="display:grid;grid-template-columns:minmax(140px,0.9fr) 2fr;gap:18px;padding:18px 0;border-top:1px solid var(--line);align-items:baseline;">
+          <dt style="margin:0;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.16em;color:var(--muted);text-transform:uppercase;">Compute</dt>
+          <dd style="margin:0;font-size:clamp(16px,1.5vw,19px);color:var(--text);"><span style="font-variant-numeric:tabular-nums;">3 ×</span> Arduino — distributed, one task each</dd>
+        </div>
+        <div style="display:grid;grid-template-columns:minmax(140px,0.9fr) 2fr;gap:18px;padding:18px 0;border-top:1px solid var(--line);align-items:baseline;">
+          <dt style="margin:0;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.16em;color:var(--muted);text-transform:uppercase;">Bus</dt>
+          <dd style="margin:0;font-size:clamp(16px,1.5vw,19px);color:var(--text);">MCP2515 CAN — genuine BMW cluster revived</dd>
+        </div>
+        <div style="display:grid;grid-template-columns:minmax(140px,0.9fr) 2fr;gap:18px;padding:18px 0;border-top:1px solid var(--line);align-items:baseline;">
+          <dt style="margin:0;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.16em;color:var(--muted);text-transform:uppercase;">Sensing</dt>
+          <dd style="margin:0;font-size:clamp(16px,1.5vw,19px);color:var(--text);">TPS → toe angle &nbsp;·&nbsp; ultrasonic → camber angle</dd>
+        </div>
+        <div style="display:grid;grid-template-columns:minmax(140px,0.9fr) 2fr;gap:18px;padding:18px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);align-items:baseline;">
+          <dt style="margin:0;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.16em;color:var(--muted);text-transform:uppercase;">Fabrication</dt>
+          <dd style="margin:0;font-size:clamp(16px,1.5vw,19px);color:var(--text);">SolidWorks CAD &nbsp;·&nbsp; PLA 3D printing — all parts original</dd>
+        </div>
+      </dl>
+    </div>
+  </section>
+
+  <!-- ============ TEAM ============ -->
+  <section style="border-top:1px solid var(--line);background:var(--surface);">
+    <div style="max-width:1320px;margin:0 auto;padding:clamp(64px,9vw,128px) clamp(24px,5vw,72px);">
+      <div data-reveal="" style="font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.26em;color:var(--accent-soft);text-transform:uppercase;">The team</div>
+
+      <!-- member portraits -->
+      <div data-reveal="" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:clamp(14px,2vw,24px);margin-top:clamp(24px,3vw,40px);">
+        <figure style="margin:0;">
+          <div role="img" aria-label="Ahmed Saeed wiring the front-cut harness" style="position:relative;aspect-ratio:4/5;background:#000;border:1px solid var(--line);overflow:hidden;">
+            <img src="images/member-omar.jpg" alt="" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:55% 26%;">
+          </div>
+          <figcaption style="margin-top:12px;">
+            <div style="font-size:clamp(16px,1.6vw,19px);font-weight:600;color:var(--text);">Ahmed Saeed</div>
+            <div style="margin-top:4px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.16em;color:var(--muted);text-transform:uppercase;">Group lead</div>
+          </figcaption>
+        </figure>
+        <figure style="margin:0;">
+          <div role="img" aria-label="Zeyad Ayman polishing a restored panel" style="position:relative;aspect-ratio:4/5;background:#000;border:1px solid var(--line);overflow:hidden;">
+            <img src="images/member-zeyad.jpg" alt="" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 28%;">
+          </div>
+          <figcaption style="margin-top:12px;">
+            <div style="font-size:clamp(16px,1.6vw,19px);font-weight:600;color:var(--text);">Zeyad Ayman</div>
+            <div style="margin-top:4px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.16em;color:var(--muted);text-transform:uppercase;">Operations manager</div>
+          </figcaption>
+        </figure>
+        <figure style="margin:0;">
+          <div role="img" aria-label="Omar Ayman at work on the E90 front-cut" style="position:relative;aspect-ratio:4/5;background:#000;border:1px solid var(--line);overflow:hidden;">
+            <img src="images/member-ahmed.jpg" alt="" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:30% 32%;">
+          </div>
+          <figcaption style="margin-top:12px;">
+            <div style="font-size:clamp(16px,1.6vw,19px);font-weight:600;color:var(--text);">Omar Ayman</div>
+            <div style="margin-top:4px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.16em;color:var(--muted);text-transform:uppercase;">Mechanical</div>
+          </figcaption>
+        </figure>
+        <figure style="margin:0;">
+          <div role="img" aria-label="Mostafa Refaat assembling the wiring harness" style="position:relative;aspect-ratio:4/5;background:#000;border:1px solid var(--line);overflow:hidden;">
+            <img src="images/member-mostafa.jpg" alt="" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:35% 26%;">
+          </div>
+          <figcaption style="margin-top:12px;">
+            <div style="font-size:clamp(16px,1.6vw,19px);font-weight:600;color:var(--text);">Mostafa Refaat</div>
+            <div style="margin-top:4px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.16em;color:var(--muted);text-transform:uppercase;">Mechanical lead</div>
+          </figcaption>
+        </figure>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(12,1fr);gap:clamp(28px,4vw,56px);margin-top:clamp(36px,4vw,56px);">
+        <div data-reveal="" style="grid-column:1 / span 7;min-width:280px;">
+          <dl style="margin:0;">
+            <div style="display:flex;justify-content:space-between;gap:16px;align-items:baseline;padding:16px 0;border-top:1px solid var(--line);flex-wrap:wrap;">
+              <dt style="margin:0;font-size:clamp(17px,1.8vw,22px);font-weight:600;color:var(--text);">Ahmed Saeed</dt>
+              <dd style="margin:0;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.16em;color:var(--muted);text-transform:uppercase;max-width:30ch;text-align:right;">Group lead · Mechanical · Electronics / CAN-bus · Software · CAD · Docs &amp; testing</dd>
+            </div>
+            <div style="display:flex;justify-content:space-between;gap:16px;align-items:baseline;padding:16px 0;border-top:1px solid var(--line);flex-wrap:wrap;">
+              <dt style="margin:0;font-size:clamp(17px,1.8vw,22px);font-weight:600;color:var(--text);">Zeyad Ayman</dt>
+              <dd style="margin:0;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.16em;color:var(--muted);text-transform:uppercase;max-width:30ch;text-align:right;">Operations manager · Financial control · Sourcing · Display design · Testing lead · Docs</dd>
+            </div>
+            <div style="display:flex;justify-content:space-between;gap:16px;align-items:baseline;padding:16px 0;border-top:1px solid var(--line);flex-wrap:wrap;">
+              <dt style="margin:0;font-size:clamp(17px,1.8vw,22px);font-weight:600;color:var(--text);">Mostafa Refaat</dt>
+              <dd style="margin:0;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.16em;color:var(--muted);text-transform:uppercase;max-width:30ch;text-align:right;">Mechanical lead · CAD · Wiring harness design &amp; install</dd>
+            </div>
+            <div style="display:flex;justify-content:space-between;gap:16px;align-items:baseline;padding:16px 0;border-top:1px solid var(--line);flex-wrap:wrap;">
+              <dt style="margin:0;font-size:clamp(17px,1.8vw,22px);font-weight:600;color:var(--text);">Omar Ayman</dt>
+              <dd style="margin:0;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.16em;color:var(--muted);text-transform:uppercase;max-width:30ch;text-align:right;">Mechanical · Project assistant · Material supply</dd>
+            </div>
+            <div style="display:flex;justify-content:space-between;gap:16px;align-items:baseline;padding:16px 0;border-top:1px solid var(--line);flex-wrap:wrap;">
+              <dt style="margin:0;font-size:clamp(17px,1.8vw,22px);font-weight:600;color:var(--text);">Abdullah Mohamed</dt>
+              <dd style="margin:0;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.16em;color:var(--muted);text-transform:uppercase;max-width:30ch;text-align:right;">Core partner · Negotiation</dd>
+            </div>
+            <div style="display:flex;justify-content:space-between;gap:16px;align-items:baseline;padding:16px 0;border-top:1px solid var(--line);flex-wrap:wrap;">
+              <dt style="margin:0;font-size:clamp(17px,1.8vw,22px);font-weight:600;color:var(--text);">Abdelrahman Wageh</dt>
+              <dd style="margin:0;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.16em;color:var(--muted);text-transform:uppercase;max-width:30ch;text-align:right;">Core partner · Negotiation</dd>
+            </div>
+            <div style="display:flex;justify-content:space-between;gap:16px;align-items:baseline;padding:16px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);flex-wrap:wrap;">
+              <dt style="margin:0;font-size:clamp(17px,1.8vw,22px);font-weight:600;color:var(--text);">Hager Fathy</dt>
+              <dd style="margin:0;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.16em;color:var(--muted);text-transform:uppercase;max-width:30ch;text-align:right;">Harness check · Core partner</dd>
+            </div>
+          </dl>
+        </div>
+        <div data-reveal="" style="grid-column:9 / span 4;min-width:220px;display:flex;flex-direction:column;gap:22px;">
+          <div>
+            <div style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.16em;color:var(--muted);text-transform:uppercase;">Supervisor</div>
+            <div style="margin-top:8px;font-size:18px;color:var(--text);">Dr. Kareem Gad — Head of Program</div>
+          </div>
+          <div>
+            <div style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.16em;color:var(--muted);text-transform:uppercase;">University</div>
+            <div style="margin-top:8px;font-size:18px;color:var(--text);">New Cairo Technological University</div>
+            <div style="margin-top:4px;font-size:14px;color:var(--muted);">Autotronics · 2026</div>
+          </div>
+          <div style="display:flex;gap:24px;margin-top:4px;align-items:center;">
+            <div role="img" aria-label="New Cairo Technological University logo" style="flex:0 0 auto;height:84px;display:flex;align-items:center;">
+              <img src="images/logo-nct.png" alt="" loading="lazy" style="height:100%;width:auto;object-fit:contain;">
+            </div>
+            <div role="img" aria-label="Autotronics Technology Program logo" style="flex:1;display:flex;align-items:center;">
+              <img src="images/logo-atp.png" alt="" loading="lazy" style="max-width:100%;max-height:64px;width:auto;object-fit:contain;">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FOOTER ============ -->
+  <footer style="border-top:1px solid var(--line);">
+    <div style="max-width:1320px;margin:0 auto;padding:clamp(36px,5vw,56px) clamp(24px,5vw,72px);display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.18em;color:var(--muted);text-transform:uppercase;">
+      <span style="color:var(--text);">Suspension &amp; Brake Diagnosis</span>
+      <span>New Cairo Technological University</span>
+      <span>2026</span>
+    </div>
+  </footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:&quot;100%&quot;,&quot;height&quot;:820},&quot;accent&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;#3A6EA5&quot;,&quot;#C8A45C&quot;,&quot;#9AA0A6&quot;],&quot;default&quot;:&quot;#3A6EA5&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;grain&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;},&quot;motion&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;}}">
+class Component extends DCLogic {
+  state = { split: 50, toe: 0.0, camber: 0.0 };
+
+  setRoot = (el) => { this.root = el; };
+  setProgress = (el) => { this.progress = el; };
+  setGrain = (el) => { this.grain = el; };
+  setParallax = (el) => { this.parallax = el; };
+  setCue = (el) => { this.cue = el; };
+  setHero = (el) => { this.hero = el; };
+  setCarBand = (el) => { this.carBand = el; };
+  setCarImg = (el) => { this.carImg = el; };
+  setHeroVideo = (el) => {
+    this.heroVideo = el;
+    if (!el) return;
+    el.muted = true;
+    el.defaultMuted = true;
+    el.loop = false;
+    this._videoTries = 0;
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches || this.props.motion === false;
+    const tryPlay = () => { if (reduced) return; const p = el.play(); if (p && p.catch) p.catch(() => {}); };
+    const reload = () => {
+      if (this._videoTries >= 6) return;
+      this._videoTries++;
+      const base = 'media/hero-headlights.mp4';
+      const src = el.querySelector('source');
+      const url = base + '?r=' + this._videoTries;
+      if (src) src.setAttribute('src', url); else el.setAttribute('src', url);
+      try { el.load(); } catch (e) {}
+      tryPlay();
+    };
+    el.addEventListener('error', () => setTimeout(reload, 600), true);
+    el.addEventListener('stalled', () => setTimeout(reload, 800));
+    el.addEventListener('loadeddata', () => { this._videoTries = 0; tryPlay(); });
+    el.addEventListener('canplay', tryPlay);
+    // If nothing has loaded shortly after mount, kick a reload.
+    setTimeout(() => { if (el.readyState === 0) reload(); }, 1200);
+    setTimeout(() => { if (el.readyState === 0) reload(); }, 3000);
+    if (reduced) { try { el.removeAttribute('autoplay'); el.pause(); } catch (e) {} }
+    else tryPlay();
+  };
+  setSlider = (el) => { this.slider = el; if (el) this.syncSliderWidth(); };
+
+  componentDidMount() {
+    this.reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    this.applyProps();
+    this.setupReveal();
+    this.setupHovers();
+    this.heroScale = this.reduced ? 1 : 1.12;
+    this.onScroll = () => {
+      if (this._raf) return;
+      this._raf = requestAnimationFrame(() => { this._raf = null; this.applyScroll(); });
+    };
+    window.addEventListener('scroll', this.onScroll, { passive: true });
+    this.applyScroll();
+    this.heroIntro();
+    if (!this.reduced && this.props.motion !== false) {
+      this.tween(1.12, 1, 1900, (p) => 1 - Math.pow(1 - p, 3), (v) => { this.heroScale = v; this.applyScroll(); });
+    }
+    if (!this.reduced && this.props.motion !== false && 'IntersectionObserver' in window && this.slider) {
+      this.sliderIo = new IntersectionObserver((ents) => {
+        ents.forEach((e) => { if (e.isIntersecting) { this.nudgeSlider(); this.sliderIo.disconnect(); } });
+      }, { threshold: 0.45 });
+      this.sliderIo.observe(this.slider);
+    }
+
+    this.onMove = (e) => {
+      if (this.dragging) { e.preventDefault(); this.updateSplit(e); }
+      if (this.alignDrag) { e.preventDefault(); this.updateAlign(e); }
+    };
+    this.onUp = () => { this.dragging = false; this.alignDrag = null; };
+    window.addEventListener('pointermove', this.onMove, { passive: false });
+    window.addEventListener('pointerup', this.onUp);
+    this.onResize = () => this.syncSliderWidth();
+    window.addEventListener('resize', this.onResize);
+    this.syncSliderWidth();
+  }
+
+  componentDidUpdate() { this.applyProps(); }
+
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this.onScroll);
+    window.removeEventListener('pointermove', this.onMove);
+    window.removeEventListener('pointerup', this.onUp);
+    window.removeEventListener('resize', this.onResize);
+    if (this.io) this.io.disconnect();
+    if (this.sliderIo) this.sliderIo.disconnect();
+  }
+
+  applyProps() {
+    const accent = this.props.accent || '#3A6EA5';
+    if (this.root && this._accent !== accent) {
+      this._accent = accent;
+      this.root.style.setProperty('--accent', accent);
+      // derive a soft tint
+      this.root.style.setProperty('--accent-soft', this.lighten(accent));
+    }
+    if (this.grain) this.grain.style.display = (this.props.grain === false) ? 'none' : 'block';
+    const noMotion = this.props.motion === false;
+    if (this.cue) this.cue.style.animationPlayState = (noMotion || this.reduced) ? 'paused' : 'running';
+    if (this.root) {
+      const anim = this.root.querySelectorAll('[data-anim-motion]');
+      anim.forEach((p) => { p.style.animationPlayState = (noMotion || this.reduced) ? 'paused' : 'running'; });
+    }
+  }
+
+  applyScroll() {
+    const doc = document.documentElement;
+    const max = (doc.scrollHeight - doc.clientHeight) || 1;
+    const y = window.scrollY;
+    if (this.progress) this.progress.style.width = Math.min(100, Math.max(0, (y / max) * 100)) + '%';
+    if (this.parallax) {
+      const s = this.heroScale || 1;
+      this.parallax.style.transform = this.reduced
+        ? ('scale(' + s + ')')
+        : ('translate3d(0,' + (y * 0.18) + 'px,0) scale(' + s + ')');
+    }
+    if (this.hero && !this.reduced) {
+      const vh = window.innerHeight || 1;
+      const p = Math.min(1, y / (vh * 0.92));
+      this.hero.style.transform = 'translateY(' + (y * 0.12) + 'px)';
+      this.hero.style.opacity = String(1 - p * 0.92);
+    }
+    if (this.carBand && this.carImg && !this.reduced) {
+      const vh = window.innerHeight || 1;
+      const r = this.carBand.getBoundingClientRect();
+      const prog = ((vh / 2) - (r.top + r.height / 2)) / vh;
+      const x = Math.max(-6, Math.min(6, prog * 7));
+      this.carImg.style.transform = 'translateX(' + x + '%) scale(1.12)';
+    }
+  }
+
+  tween(from, to, dur, ease, cb, done) {
+    const t0 = (window.performance && performance.now) ? performance.now() : Date.now();
+    const step = (t) => {
+      const p = Math.min(1, (t - t0) / dur);
+      cb(from + (to - from) * (ease ? ease(p) : p));
+      if (p < 1) requestAnimationFrame(step); else if (done) done();
+    };
+    requestAnimationFrame(step);
+  }
+
+  heroIntro() {
+    if (!this.hero || this.reduced || this.props.motion === false) return;
+    const kids = Array.from(this.hero.children);
+    kids.forEach((k) => { k.style.opacity = '0'; k.style.transform = 'translateY(24px)'; k.style.willChange = 'opacity, transform'; });
+    // Timer-driven (not rAF) so the end-state is guaranteed even where the paint loop is throttled.
+    kids.forEach((k, i) => {
+      setTimeout(() => {
+        k.style.transition = 'opacity 1s cubic-bezier(.16,.84,.33,1), transform 1s cubic-bezier(.16,.84,.33,1)';
+        k.style.opacity = '1';
+        k.style.transform = 'none';
+      }, 130 + i * 130);
+      setTimeout(() => { k.style.willChange = 'auto'; }, 1400 + i * 130);
+    });
+  }
+
+  nudgeSlider() {
+    if (this._nudged || this.reduced || this.props.motion === false) return;
+    this._nudged = true;
+    this.tween(0, 1, 1700, (p) => p, (v) => { this.setState({ split: 50 + Math.sin(v * Math.PI * 2) * 8 }); });
+  }
+
+  lighten(hex) {
+    try {
+      const h = hex.replace('#', '');
+      const r = parseInt(h.substr(0,2),16), g = parseInt(h.substr(2,2),16), b = parseInt(h.substr(4,2),16);
+      const m = (c) => Math.min(255, Math.round(c + (255 - c) * 0.42));
+      return 'rgb(' + m(r) + ',' + m(g) + ',' + m(b) + ')';
+    } catch (e) { return '#5b8fc4'; }
+  }
+
+  setupReveal() {
+    if (!this.root) return;
+    const noMotion = this.reduced || this.props.motion === false;
+    const blocks = Array.from(this.root.querySelectorAll('[data-reveal]'));
+    if (noMotion || !('IntersectionObserver' in window)) {
+      blocks.forEach((b) => { b.style.opacity = '1'; b.style.transform = 'none'; });
+      return;
+    }
+    blocks.forEach((b) => {
+      b.style.transition = 'opacity .9s cubic-bezier(.16,.84,.33,1), transform .9s cubic-bezier(.16,.84,.33,1)';
+      b.style.opacity = '0';
+      b.style.transform = 'translateY(26px)';
+      b.querySelectorAll('h1,h2,h3,[data-wipe]').forEach((w) => { w.style.clipPath = 'inset(0 0 108% 0)'; w.style.willChange = 'clip-path'; });
+      b.querySelectorAll('[role="img"]').forEach((m) => { m.style.clipPath = 'inset(0 0 100% 0)'; m.style.willChange = 'clip-path'; });
+    });
+    this.io = new IntersectionObserver((entries) => {
+      entries.forEach((en) => {
+        if (!en.isIntersecting) return;
+        const b = en.target;
+        b.style.opacity = '1';
+        b.style.transform = 'none';
+        b.querySelectorAll('h1,h2,h3,[data-wipe]').forEach((w, i) => {
+          const d = 0.08 + i * 0.09;
+          w.style.transition = 'clip-path 1s cubic-bezier(.16,.84,.33,1) ' + d + 's';
+          w.style.clipPath = 'inset(0 0 -12% 0)';
+        });
+        b.querySelectorAll('[role="img"]').forEach((m, i) => {
+          const d = 0.12 + i * 0.12;
+          m.style.transition = 'clip-path 1.15s cubic-bezier(.16,.84,.33,1) ' + d + 's, transform .55s cubic-bezier(.16,.84,.33,1), box-shadow .55s ease';
+          m.style.clipPath = 'inset(0 0 -2% 0)';
+          this.scanSweep(m);
+        });
+        setTimeout(() => {
+          b.querySelectorAll('h1,h2,h3,[data-wipe]').forEach((w) => { w.style.clipPath = 'none'; w.style.willChange = 'auto'; });
+          b.querySelectorAll('[role="img"]').forEach((m) => { m.style.clipPath = 'none'; m.style.willChange = 'auto'; });
+        }, 1600);
+        this.io.unobserve(b);
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+    blocks.forEach((b) => this.io.observe(b));
+  }
+
+  scanSweep(m) {
+    if (this.reduced || this.props.motion === false || typeof m.animate !== 'function') return;
+    if (getComputedStyle(m).position === 'static') m.style.position = 'relative';
+    m.style.overflow = 'hidden';
+    const line = document.createElement('div');
+    line.setAttribute('aria-hidden', 'true');
+    line.style.cssText = 'position:absolute;left:0;right:0;top:0;height:2px;z-index:5;pointer-events:none;background:linear-gradient(90deg,transparent,var(--accent),transparent);box-shadow:0 0 14px rgba(58,110,165,.85);';
+    m.appendChild(line);
+    const h = Math.max(40, m.clientHeight - 2);
+    const anim = line.animate([
+      { transform: 'translateY(0px)', opacity: 0 },
+      { opacity: 1, offset: 0.12 },
+      { opacity: 1, offset: 0.88 },
+      { transform: 'translateY(' + h + 'px)', opacity: 0 }
+    ], { duration: 1150, delay: 350, easing: 'cubic-bezier(.4,0,.2,1)', fill: 'forwards' });
+    anim.onfinish = () => { line.remove(); };
+  }
+
+  setupHovers() {
+    if (!this.root) return;
+    this.root.querySelectorAll('figure [role="img"]').forEach((m) => {
+      m.addEventListener('mouseenter', () => {
+        if (this.reduced || this.props.motion === false) return;
+        m.style.transform = 'scale(1.014)';
+        m.style.boxShadow = '0 20px 54px rgba(0,0,0,.5)';
+        m.style.zIndex = '2';
+      });
+      m.addEventListener('mouseleave', () => { m.style.transform = ''; m.style.boxShadow = ''; });
+    });
+  }
+
+  syncSliderWidth() {
+    if (!this.slider) return;
+    const w = this.slider.getBoundingClientRect().width;
+    if (w) this.slider.style.setProperty('--slider-w', w + 'px');
+  }
+
+  updateSplit(e) {
+    if (!this.slider) return;
+    const r = this.slider.getBoundingClientRect();
+    let p = ((e.clientX - r.left) / r.width) * 100;
+    p = Math.max(0, Math.min(100, p));
+    this.setState({ split: p });
+  }
+
+  onAlignDown(which, e) {
+    e.preventDefault();
+    this.alignDrag = { which, startX: e.clientX, startVal: which === 'toe' ? this.state.toe : this.state.camber };
+  }
+
+  updateAlign(e) {
+    const a = this.alignDrag;
+    if (!a) return;
+    const dx = e.clientX - a.startX;
+    let v = a.startVal + dx * 0.03;
+    v = Math.max(-3, Math.min(3, v));
+    v = Math.round(v * 10) / 10;
+    this.setState(a.which === 'toe' ? { toe: v } : { camber: v });
+  }
+
+  resetAlign() { this.setState({ toe: 0.0, camber: 0.0 }); }
+
+  fmt(v) {
+    const s = v > 0 ? '+' : (v < 0 ? '\u2212' : '\u00B1');
+    return s + Math.abs(v).toFixed(1) + '\u00B0';
+  }
+
+  renderVals() {
+    const toe = this.state.toe, camber = this.state.camber;
+    const toeOk = Math.abs(toe) <= 0.30, camOk = Math.abs(camber) <= 0.50;
+    const allOk = toeOk && camOk;
+    return {
+      splitPct: this.state.split + '%',
+      onSliderDown: (e) => { this.dragging = true; this.updateSplit(e); },
+      toeTransform: 'rotate(' + toe + 'deg)',
+      camberTransform: 'rotate(' + camber + 'deg)',
+      toeText: this.fmt(toe),
+      camberText: this.fmt(camber),
+      toeStat: toeOk ? 'OK' : 'OUT',
+      camStat: camOk ? 'OK' : 'OUT',
+      toeColor: toeOk ? 'var(--accent-soft)' : '#C8A45C',
+      camColor: camOk ? 'var(--accent-soft)' : '#C8A45C',
+      statusText: allOk ? 'In spec' : 'Out of spec',
+      statusColor: allOk ? 'var(--accent-soft)' : '#C8A45C',
+      onToeDown: (e) => this.onAlignDown('toe', e),
+      onCamberDown: (e) => this.onAlignDown('camber', e),
+      onReset: () => this.resetAlign(),
+      setRoot: this.setRoot,
+      setProgress: this.setProgress,
+      setGrain: this.setGrain,
+      setParallax: this.setParallax,
+      setCue: this.setCue,
+      setHero: this.setHero,
+      setHeroVideo: this.setHeroVideo,
+      setCarBand: this.setCarBand,
+      setCarImg: this.setCarImg,
+      setSlider: this.setSlider,
+    };
+  }
+}
+</script>
+</body>
+</html>
