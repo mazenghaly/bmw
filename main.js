@@ -143,8 +143,8 @@ function applyScroll() {
     const vh = window.innerHeight || 1;
     const r = el.carBand.getBoundingClientRect();
     const prog = ((vh / 2) - (r.top + r.height / 2)) / vh;
-    const x = Math.max(-6, Math.min(6, prog * 7));
-    el.carImg.style.transform = 'translateX(' + x + '%) scale(1.12)';
+    const x = Math.max(-2, Math.min(2, prog * 2.5));
+    el.carImg.style.transform = 'translateX(' + x + '%) scale(1.04)';
   }
 }
 
