@@ -56,6 +56,14 @@ function setupVideo() {
   vid.loop = false;
   let tries = 0;
 
+  // Pick the right aspect ratio for the viewport: a 9:16 clip on phones,
+  // the 16:9 clip on tablet/desktop. Chosen once so we never load both.
+  const srcDesktop = vid.getAttribute('data-src-desktop') || 'media/hero-headlights.mp4';
+  const srcMobile  = vid.getAttribute('data-src-mobile')  || srcDesktop;
+  const baseSrc = window.matchMedia('(max-width: 768px)').matches ? srcMobile : srcDesktop;
+  const sourceEl = vid.querySelector('source');
+  if (sourceEl) { sourceEl.setAttribute('src', baseSrc); try { vid.load(); } catch (e) {} }
+
   function tryPlay() {
     if (reduced) return;
     const p = vid.play();
@@ -65,9 +73,7 @@ function setupVideo() {
   function reload() {
     if (tries >= 6) return;
     tries++;
-    const src = vid.querySelector('source');
-    const url = 'media/hero-headlights.mp4?r=' + tries;
-    if (src) src.setAttribute('src', url);
+    if (sourceEl) sourceEl.setAttribute('src', baseSrc + '?r=' + tries);
     try { vid.load(); } catch (e) {}
     tryPlay();
   }
