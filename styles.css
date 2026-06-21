@@ -122,13 +122,17 @@ img { max-width: 100%; display: block; }
 
 /* ── General mobile responsive ───────────────── */
 @media (max-width: 768px) {
-  .grid-12 { display: flex !important; flex-direction: column !important; }
-  .grid-12 > * { min-width: 0 !important; }
+  /* Force flex columns to stretch: the inline align-items:center/start used
+     for the desktop grid would otherwise shrink image figures to their
+     content width (0, since the <img> is absolutely positioned), collapsing
+     the aspect-ratio box to zero height and hiding the image. */
+  .grid-12 { display: flex !important; flex-direction: column !important; align-items: stretch !important; }
+  .grid-12 > * { min-width: 0 !important; width: 100% !important; }
   .duo-grid { grid-template-columns: 1fr !important; }
   .specs-dl > div { grid-template-columns: 1fr !important; gap: 6px !important; }
   .team-grid { grid-template-columns: repeat(2,1fr) !important; }
-  .team-grid-lower { display: flex !important; flex-direction: column !important; }
-  .team-grid-lower > * { min-width: 0 !important; }
+  .team-grid-lower { display: flex !important; flex-direction: column !important; align-items: stretch !important; }
+  .team-grid-lower > * { min-width: 0 !important; width: 100% !important; }
 }
 @media (max-width: 480px) {
   .team-grid { grid-template-columns: 1fr !important; }
