@@ -120,6 +120,19 @@ img { max-width: 100%; display: block; }
   .sim-wheel  { min-height: 0 !important; aspect-ratio: 16/9 !important; }
 }
 
+/* ── Hero video mobile ───────────────────────── */
+@media (max-width: 768px) {
+  #hero-video {
+    width: 100% !important;
+    height: auto !important;
+    inset: auto !important;
+    top: 50% !important;
+    left: 0 !important;
+    transform: translateY(-50%) !important;
+    object-fit: unset !important;
+  }
+}
+
 /* ── General mobile responsive ───────────────── */
 @media (max-width: 768px) {
   .grid-12 { display: flex !important; flex-direction: column !important; }
