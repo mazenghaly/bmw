@@ -58,11 +58,33 @@ function setupVideo() {
 
   // Pick the right aspect ratio for the viewport: a 9:16 clip on phones,
   // the 16:9 clip on tablet/desktop. Chosen once so we never load both.
+  const isMobile  = window.matchMedia('(max-width: 768px)').matches;
   const srcDesktop = vid.getAttribute('data-src-desktop') || 'media/hero-headlights.mp4';
   const srcMobile  = vid.getAttribute('data-src-mobile')  || srcDesktop;
-  const baseSrc = window.matchMedia('(max-width: 768px)').matches ? srcMobile : srcDesktop;
+  const baseSrc = isMobile ? srcMobile : srcDesktop;
   const sourceEl = vid.querySelector('source');
   if (sourceEl) { sourceEl.setAttribute('src', baseSrc); try { vid.load(); } catch (e) {} }
+
+  // Matching still poster sits behind the video. The video starts transparent
+  // and only fades in once it actually plays — so if autoplay is blocked
+  // (iOS Low Power Mode, first load before interaction, reduced-motion), the
+  // poster shows cleanly instead of a black frame or a native play button.
+  const poster = document.getElementById('hero-poster');
+  if (poster) {
+    const pd = poster.getAttribute('data-src-desktop');
+    const pm = poster.getAttribute('data-src-mobile');
+    const psrc = isMobile ? (pm || pd) : pd;
+    if (psrc && poster.getAttribute('src') !== psrc) poster.setAttribute('src', psrc);
+  }
+
+  let shown = false;
+  function showVideo() {
+    if (shown) return;
+    shown = true;
+    vid.style.opacity = '1';
+  }
+  vid.addEventListener('playing', showVideo);
+  vid.addEventListener('timeupdate', function() { if (vid.currentTime > 0.05) showVideo(); });
 
   function tryPlay() {
     if (reduced) return;
@@ -84,6 +106,25 @@ function setupVideo() {
   vid.addEventListener('canplay', tryPlay);
   setTimeout(function() { if (vid.readyState === 0) reload(); }, 1200);
   setTimeout(function() { if (vid.readyState === 0) reload(); }, 3000);
+
+  // Retry the moment the user interacts — covers browsers that block autoplay
+  // until a gesture. Listeners self-remove once the video is playing.
+  function kick() {
+    if (reduced) { detach(); return; }
+    tryPlay();
+    if (!vid.paused) detach();
+  }
+  function detach() {
+    ['touchstart', 'pointerdown', 'click', 'scroll', 'keydown'].forEach(function(ev) {
+      window.removeEventListener(ev, kick);
+    });
+  }
+  ['touchstart', 'pointerdown', 'click', 'scroll', 'keydown'].forEach(function(ev) {
+    window.addEventListener(ev, kick, { passive: true });
+  });
+  document.addEventListener('visibilitychange', function() {
+    if (!document.hidden) tryPlay();
+  });
 
   if (reduced) {
     try { vid.removeAttribute('autoplay'); vid.pause(); } catch (e) {}
